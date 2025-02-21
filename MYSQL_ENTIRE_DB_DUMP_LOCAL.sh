@@ -9,6 +9,9 @@ HOSTNAME=''
 # NAME OF PROGRAM FOR OUTPUTS
 PROGRAM="$(basename "$0")"
 
+# INSERT EMAIL FOR NOTIFCATION
+EMAIL = ''
+
 # DATE STAMP OF BACKUP YYYYMMDD_HH:MM
 DATE=$(date +"%Y%m%d_%H:%M")
 echo $DATE
@@ -96,9 +99,9 @@ fi
 
 # IF BACKUP WAS SUCCESSFUL OR ERROR, SEND EMAIL
 if [[ "$BACKUP_SUCCESS" == true ]]; then
-    echo "BACKUP of database $DB on $HOSTNAME completed successfully on $(date)." | mailx -s "$HOSTNAME DATABASE: $DB BACKUP SUCCESSFUL" aparker51@fordham.edu stoffa@fordham.edu < $OUTPUTFILE
+    echo "BACKUP of database $DB on $HOSTNAME completed successfully on $(date)." | mailx -s "$HOSTNAME DATABASE: $DB BACKUP SUCCESSFUL" ${EMAIL} < $OUTPUTFILE
 else
-    echo "Error: Backup of database $DB FAILED on $HOSTNAME on $(date)" | mailx -s "ERROR: $HOSTNAME DATABASE $DB BACKUP FAILED" aparker51@fordham.edu stoffa@fordham.edu < $OUTPUTFILE
+    echo "Error: Backup of database $DB FAILED on $HOSTNAME on $(date)" | mailx -s "ERROR: $HOSTNAME DATABASE $DB BACKUP FAILED" ${EMAIL} < $OUTPUTFILE
 fi
 
 
