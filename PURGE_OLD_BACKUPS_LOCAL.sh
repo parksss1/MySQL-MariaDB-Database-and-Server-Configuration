@@ -16,6 +16,9 @@ HOSTNAME=""
 # NAME OF DATABASE
 DB=""
 
+# EMAIL FOR NOTIFICATIONS
+EMAIL = ''
+
 # NUM. DAYS TO KEEP FILES
 RETENTION=7
 echo $RETENTION
@@ -108,7 +111,7 @@ echo $BORDER
 
 # EMAIL NOTIFICATION
 if [[ "$PURGE_SUCCESS" == true ]]; then
-    echo "Purge of table backups for database $DB on $HOSTNAME completed successfully on `date`." | mailx -s "$HOSTNAME PURGE TABLE BACKUPS FOR DATABASE $DB SUCCESSFUL" aparker51@fordham.edu oracleadm@fordham.edu < $OUTPUTFILE
+    echo "Purge of table backups for database $DB on $HOSTNAME completed successfully on `date`." | mailx -s "$HOSTNAME PURGE TABLE BACKUPS FOR DATABASE $DB SUCCESSFUL" ${EMAIL} < $OUTPUTFILE
 else
-    echo "Error: Purge of database $DB tables backups FAILED on $HOSTNAME on `date`" | mailx -s "ERROR: $HOSTNAME PURGE TABLE BACKUPS FOR DATABASE $DB FAILED" aparker51@fordham.edu oracleadm@fordham.edu < $OUTPUTFILE
+    echo "Error: Purge of database $DB tables backups FAILED on $HOSTNAME on `date`" | mailx -s "ERROR: $HOSTNAME PURGE TABLE BACKUPS FOR DATABASE $DB FAILED" ${EMAIL} < $OUTPUTFILE
 fi
